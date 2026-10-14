@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KSU Coffee Menu</title>
+  <style>
+    body { font-family: sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+    .menu li { padding: 6px 0; }
+    .version { font-weight: bold; }
+    footer { margin-top: 32px; font-family: monospace; font-size: 0.85em; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>KSU Coffee</h1>
+  <p>ชื่อ-นามสกุล: ____ รหัสนักศึกษา: ____</p>
+  <ul class="menu">
+    <li>ชื่อเมนู — 00 บาท</li>
+  </ul>
+  <p class="version">Menu v0</p>
+  <footer id="info">กำลังโหลดข้อมูลระบบ...</footer>
+
+  <script>
+    fetch("/api/info")
+      .then((r) => r.json())
+      .then((d) => {
+        document.getElementById("info").textContent =
+          `platform: ${d.platform} · student: ${d.student} · commit: ${d.commit.slice(0, 7)}`;
+      })
+      .catch(() => {
+        document.getElementById("info").textContent = "เรียก /api/info ไม่สำเร็จ";
+      });
+  </script>
+</body>
+</html>
